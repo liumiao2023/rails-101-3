@@ -9,6 +9,7 @@ before_action :find_group_and_check_permission, only: [:edit, :update, :destory]
 
   def show
     @group = Group.find(params[:id])
+    @posts = @group.posts
   end
 
   def new
@@ -40,7 +41,7 @@ before_action :find_group_and_check_permission, only: [:edit, :update, :destory]
   end
 
   def destroy
-    
+
     @group.destroy
     redirect_to groups_path, notice: "Group Deleted"
   end

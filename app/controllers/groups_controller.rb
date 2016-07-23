@@ -46,6 +46,29 @@ before_action :find_group_and_check_permission, only: [:edit, :update, :destory]
     redirect_to groups_path, notice: "Group Deleted"
   end
 
+  def join
+    @group = Group.find(params[:id])
+      if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:notice] = "You have signed this topic"
+    else
+      flash[:warning] = "你已經是本討論版成員了！"
+    end
+
+      redirect_to group_path(@group)
+    end
+
+    def quit
+      @group = Group.find(params[:id])
+        if current_user.is_member_of?(@group)
+        current_user.quit!(@group)
+        flash[:alert] = "You have signed off the topic！"
+      else
+        flash[:warning] = "你不是本討論版成員，怎麼退出 XD"
+    end
+      redirect_to group_path(@group)
+    end
+
   private
 
   def find_group_and_check_permission

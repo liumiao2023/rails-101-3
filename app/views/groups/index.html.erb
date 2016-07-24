@@ -3,6 +3,7 @@
     <%= link_to("New Group", new_group_path, class: "btn btn-primary pull-right") %>
   </div>
   <table class="table table-hover">
+
     <thead>
       <tr>
         <td><span class="glyphicon glyphicon-asterisk"></span></td>
@@ -11,19 +12,24 @@
         <td>Creator</td>
       </tr>
     </thead>
+
     <tbody>
+
       <% @groups.each do |group| %>
+      <tr>
       <td><span class="glyphicon glyphicon-option-vertical"></span></td>
-      <td><%= link_to(group.title, group_path(group))%></td>
-      <td><%= group.description%></td>
+      <td><%= link_to(group.title, group_path(group)) %></td>
+      <td><%= group.description %></td>
       <td><%= group.user.email %></td>
       <td>
         <% if current_user && current_user == group.user %>
         <%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-default")%>
-        <%= link_to("Delete", group_path(group), class: "btn btn-sm btn-default", method: :delete, data: {confirm: "Are You Sure?"})%>
+        <%= link_to("Delete", group_path(group),    class: "btn btn-sm btn-default",
+          method: :delete, data: { confirm: "Are you sure?" } )%>
         <% end %>
       </td>
       <% end %>
+      </tr>
     </tbody>
   </table>
 </div>
